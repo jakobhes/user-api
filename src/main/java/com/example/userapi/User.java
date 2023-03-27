@@ -6,8 +6,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -16,10 +18,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "Last name is mandatory")
+    @Size(min = 1, max = 50, message = "Last name should be between 1 and 50 characters")
     private String lastName;
 
-    @NotBlank(message = "Name is mandatory")
+    @NotBlank(message = "First name is mandatory")
+    @Size(min = 1, max = 50, message = "First name should be between 1 and 50 characters")
     private String firstName;
 
     @NotBlank(message = "Email is mandatory")
@@ -27,6 +31,7 @@ public class User {
     private String email;
 
     @Min(value = 1, message = "Age should not be less than 1")
+    @Max(value = 123, message = "Age should not be greater than 123")
     private int age;
 
 
