@@ -17,7 +17,10 @@ public class User {
     private long id;
 
     @NotBlank(message = "Name is mandatory")
-    private String name;
+    private String lastName;
+
+    @NotBlank(message = "Name is mandatory")
+    private String firstName;
 
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")
@@ -26,12 +29,10 @@ public class User {
     @Min(value = 1, message = "Age should not be less than 1")
     private int age;
 
-    public User() {
-        // Default constructor
-    }
 
-    public User(String name, String email, int age) {
-        this.name = name;
+    public User(String firstName, String lastName, String email, int age) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.age = age;
     }
@@ -41,17 +42,23 @@ public class User {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
 
     public String getEmail() {
         return email;
@@ -84,7 +91,8 @@ public class User {
 
         if (id != user.id) return false;
         if (age != user.age) return false;
-        if (!name.equals(user.name)) return false;
+        if (!firstName.equals(user.firstName)) return false;
+        if (!lastName.equals(user.lastName)) return false;
         return email.equals(user.email);
     }
 
@@ -96,7 +104,8 @@ public class User {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + name.hashCode();
+        result = 31 * result + firstName.hashCode();
+        result = 31 * result + lastName.hashCode();
         result = 31 * result + email.hashCode();
         result = 31 * result + age;
         return result;

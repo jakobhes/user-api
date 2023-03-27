@@ -24,7 +24,8 @@ public class UserService {
 
     public User updateUser(long id, User userDetails) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
-        user.setName(userDetails.getName());
+        user.setFirstName(userDetails.getFirstName());
+        user.setLastName(userDetails.getLastName());
         user.setEmail(userDetails.getEmail());
         user.setAge(userDetails.getAge());
         return userRepository.save(user);

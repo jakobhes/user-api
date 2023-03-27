@@ -30,8 +30,8 @@ public class UserControllerTest {
     public void testGetAllUsers() {
         // given
         List<User> users = new ArrayList<>();
-        User user1 = new User("John", "john@gmail.com", 30);
-        User user2 = new User("Alex", "alex@yahoo.com", 25);
+        User user1 = new User("John", "Wick", "wick@gmail.com", 30);
+        User user2 = new User("Alex", "Miller", "alex@yahoo.com", 34);
         users.add(user1);
         users.add(user2);
 
@@ -43,15 +43,17 @@ public class UserControllerTest {
 
         // then
         assertThat(result.size()).isEqualTo(users.size());
-        assertThat(result.get(0).getName()).isEqualTo(users.get(0).getName());
-        assertThat(result.get(1).getName()).isEqualTo(users.get(1).getName());
+        assertThat(result.get(0).getFirstName()).isEqualTo(users.get(0).getFirstName());
+        assertThat(result.get(0).getLastName()).isEqualTo(users.get(0).getLastName());
+        assertThat(result.get(1).getFirstName()).isEqualTo(users.get(1).getFirstName());
+        assertThat(result.get(1).getLastName()).isEqualTo(users.get(1).getLastName());
         verify(userService).getAllUsers();
     }
 
     @Test
     public void testGetUserById() {
         // given
-        User user = new User("John", "john@gmail.com", 30);
+        User user = new User("Josephine", "Smith", "smith.josephine@web.de", 57);
 
         // mock userService
         when(userService.getUserById(1)).thenReturn(user);
@@ -67,7 +69,7 @@ public class UserControllerTest {
     @Test
     public void testCreateUser() {
         // given
-        User user = new User("John", "john@gmail.com", 30);
+        User user = new User("Max", "Wesson", "wesson@gmail.com", 16);
 
         // mock userService
         when(userService.createUser(user)).thenReturn(user);
@@ -83,8 +85,8 @@ public class UserControllerTest {
     @Test
     public void testUpdateUser() {
         // given
-        User userDetails = new User("Alex", "alex@yahoo.com", 25);
-        User user = new User("John", "john@gmail.com", 30);
+        User userDetails = new User("Moritz", "Bandit", "banditen.moritz@yahoo.com", 22);
+        User user = new User("John", "Wick", "wickedjohn@mydomain.com", 30);
 
         // mock userService
         when(userService.updateUser(1, userDetails)).thenReturn(user);

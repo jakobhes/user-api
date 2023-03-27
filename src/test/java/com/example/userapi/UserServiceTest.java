@@ -29,7 +29,7 @@ public class UserServiceTest {
 
     @Test
     public void testCreateUser() {
-        User user = new User("Max Mustermann", "mustermann@gmail.com", 30);
+        User user = new User("Max", "Mustermann", "mustermann@gmail.com", 30);
         when(userRepository.save(any(User.class))).thenReturn(user);
 
         User createdUser = userService.createUser(user);
@@ -39,7 +39,7 @@ public class UserServiceTest {
 
     @Test
     public void testGetUserById() {
-        User user = new User("Erika Musterfrau", "musterfrau@yahoo.com", 30);
+        User user = new User("Erika", "Musterfrau", "musterfrau@yahoo.com", 30);
         when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(user));
 
         User foundUser = userService.getUserById(1L);
@@ -56,8 +56,8 @@ public class UserServiceTest {
 
     @Test
     public void testGetAllUsers() {
-        User user1 = new User("John Doe", "john.doe@example.com", 30);
-        User user2 = new User("Jane Doe", "jane.doe@example.com", 25);
+        User user1 = new User("Tim", "Rancher", "tim.rancher@example.com", 67);
+        User user2 = new User("Mona", "Lisa", "smile@art.com", 66);
         List<User> userList = new ArrayList<>();
         userList.add(user1);
         userList.add(user2);
@@ -70,28 +70,29 @@ public class UserServiceTest {
 
     @Test
     public void testUpdateUser() {
-        User user = new User("John Doe", "john.doe@example.com", 30);
+        User user = new User("Corinna", "Meier", "corinna.meier@gmail.com", 77);
         when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(user));
         when(userRepository.save(any(User.class))).thenReturn(user);
 
-        User updatedUser = new User("Jane Doe", "jane.doe@example.com", 25);
+        User updatedUser = new User("Peter", "Lustig", "peter.lustig@gmail.com", 56);
         userService.updateUser(1L, updatedUser);
 
-        Assertions.assertEquals("Jane Doe", updatedUser.getName());
-        Assertions.assertEquals("jane.doe@example.com", updatedUser.getEmail());
-        Assertions.assertEquals(25, updatedUser.getAge());
+        Assertions.assertEquals("Peter", updatedUser.getFirstName());
+        Assertions.assertEquals("Lustig", updatedUser.getLastName());
+        Assertions.assertEquals("peter.lustig@gmail.com", updatedUser.getEmail());
+        Assertions.assertEquals(56, updatedUser.getAge());
     }
 
     @Test
     public void testUpdateUserNotFound() {
         when(userRepository.findById(any(Long.class))).thenReturn(Optional.empty());
-        User userToUpdate = new User("Jane Doe", "jane.doe@example.com", 25);
+        User userToUpdate = new User("Maria", "Rilke", "mariarilke@web.de", 23);
         Assertions.assertThrows(UserNotFoundException.class, () -> userService.updateUser(userToUpdate.getId(), userToUpdate));
     }
 
     @Test
     public void testDeleteUser() {
-        User user = new User("John Doe", "john.doe@example.com", 30);
+        User user = new User("Anna", "Bar", "bar@gmail.com", 30);
         when(userRepository.findById(any(Long.class))).thenReturn(Optional.of(user));
 
         userService.deleteUser(1L);
