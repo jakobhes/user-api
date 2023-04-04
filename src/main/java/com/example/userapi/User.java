@@ -4,12 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 
 @Entity
@@ -34,6 +29,9 @@ public class User {
     @Max(value = 123, message = "Age should not be greater than 123")
     private int age;
 
+    public User() {
+        //Default constructor
+    }
 
     public User(String firstName, String lastName, String email, int age) {
         this.firstName = firstName;
